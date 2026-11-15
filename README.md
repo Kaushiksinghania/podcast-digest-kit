@@ -85,7 +85,7 @@ same document works as a checklist.
 
 ## Third-party services
 
-Two are optional, and the pipeline degrades gracefully without either.
+Several are optional, and the pipeline degrades gracefully without any of them.
 
 | Service | What it's for | Needed? |
 |---|---|---|
