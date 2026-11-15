@@ -1,0 +1,10 @@
+interface:
+  display_name: Podcast Digest
+  short_description: Create transcript-grounded podcast briefs and file them to a searchable knowledge base
+policy:
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas
+  allow_implicit_invocation: true
