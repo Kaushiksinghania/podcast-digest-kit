@@ -1,0 +1,23 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+config.json
+state.json
+
+# Generated podcast data — do not publish transcripts or personal digest state
+transcripts/
+records/
+digests/
+*.mp3
+*.wav
+*.m4a
+*.flac
+
+# Python and local tooling
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.DS_Store
