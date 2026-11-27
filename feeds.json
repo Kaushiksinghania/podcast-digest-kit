@@ -98,7 +98,9 @@
     "Lenny's Podcast": {
       "name": "Lenny's Podcast: Product | Career | Growth",
       "rss": "https://api.substack.com/feed/podcast/10845.rss",
-      "apple_id": 1627920305
+      "apple_id": 1627920305,
+      "website_transcripts": true,
+      "episode_url_source": "rss_link"
     },
     "Business Breakdowns": {
       "name": "Business Breakdowns",
@@ -123,6 +125,58 @@
       "name": "The Story of Money",
       "rss": "https://feeds.acast.com/public/shows/behindthemoney",
       "apple_id": 1376303362
+    },
+    "Semi Doped": {
+      "name": "Semi Doped",
+      "rss": "https://rss.buzzsprout.com/2570635.rss",
+      "apple_id": 1866707196
+    },
+    "Supply Chained": {
+      "name": "Supply Chained",
+      "rss": "https://anchor.fm/s/111a4f378/podcast/rss",
+      "apple_id": 1894962569
+    },
+    "The Hardtech Podcast": {
+      "name": "The Hardtech Podcast",
+      "rss": "https://feeds.fireside.fm/hardtechpodcast/rss",
+      "apple_id": 1633290791
+    },
+    "Hardware to Save a Planet": {
+      "name": "Hardware to Save a Planet",
+      "rss": "https://feeds.fame.so/hardware-to-save-a-planet",
+      "apple_id": 1628554388
+    },
+    "Manufacturing Happy Hour": {
+      "name": "Manufacturing Happy Hour",
+      "rss": "https://feeds.captivate.fm/manufacturing-happy-hour/",
+      "apple_id": 1484626862
+    },
+    "Catalyst": {
+      "name": "Catalyst with Shayle Kann",
+      "rss": "https://feeds.megaphone.fm/catalyst",
+      "apple_id": 1593204897
+    },
+    "Dwarkesh Podcast": {
+      "name": "Dwarkesh Podcast",
+      "rss": "https://apple.dwarkesh-podcast.workers.dev/feed.rss",
+      "apple_id": 1516093381,
+      "website_transcripts": true,
+      "episode_url_source": "rss_link"
+    },
+    "Odd Lots": {
+      "name": "Odd Lots",
+      "rss": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/podcast.rss",
+      "apple_id": 1056200096
+    },
+    "Capital Allocators": {
+      "name": "Capital Allocators",
+      "rss": "https://rss.libsyn.com/shows/94820/destinations/482814.xml",
+      "apple_id": 1223764016
+    },
+    "Macro Musings": {
+      "name": "Macro Musings with David Beckworth",
+      "rss": "https://rss.libsyn.com/shows/138806/destinations/865793.xml",
+      "apple_id": 1099277290
     }
   }
 }
