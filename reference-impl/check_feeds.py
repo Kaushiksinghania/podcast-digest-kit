@@ -30,6 +30,7 @@ import requests
 NS = {
     "itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
     "content": "http://purl.org/rss/1.0/modules/content/",
+    "podcast": "https://podcastindex.org/namespace/1.0",
 }
 
 UA = "podcast-digest/1.0 (+https://example.com)"
@@ -91,6 +92,15 @@ def audio_url(item) -> str:
     return ""
 
 
+def transcript_urls(item) -> list:
+    """Podcasting 2.0 <podcast:transcript> tags: free, publisher-provided transcripts."""
+    out = []
+    for el in item.findall("{%s}transcript" % NS["podcast"]):
+        if el.get("url"):
+            out.append({"url": el.get("url"), "type": el.get("type") or ""})
+    return out
+
+
 def fetch(url: str, timeout: int) -> bytes:
     r = requests.get(url, timeout=timeout, headers={"User-Agent": UA})
     r.raise_for_status()
@@ -149,6 +159,7 @@ def main() -> int:
                     "link": text_of(item.find("link")),
                     "guid": text_of(item.find("guid")),
                     "audio_url": audio_url(item),
+                    "transcript_urls": transcript_urls(item),
                     "description": desc[:2000],
                     "website_transcripts": bool(meta.get("website_transcripts")),
                 }

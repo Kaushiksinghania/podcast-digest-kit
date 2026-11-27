@@ -5,7 +5,7 @@ get_transcript.py — acquire a transcript for one episode, with a fallback chai
 Reference implementation for SPEC.md §4-§5. Dependencies: requests (+ yt-dlp and ffmpeg on PATH
 for the Whisper path).
 
-Chain:  website transcript (if given) -> Supadata (YouTube) -> Whisper (RSS audio) -> none
+Chain:  RSS <podcast:transcript> (if given) -> website transcript (if given) -> Supadata (YouTube) -> Whisper (RSS audio) -> none
 
 Environment:
     SUPADATA_API_KEY        optional, https://supadata.ai
@@ -47,11 +47,11 @@ def note(notes, msg):
 
 # ---------------------------------------------------------------- verification
 
-def head_matches(transcript: str, title: str, guest: str = "") -> bool:
+def head_matches(transcript: str, title: str, guest: str = "", window: int = 1200, min_hits: int = 0) -> bool:
     """SPEC.md §4b — cheap sanity check that the transcript is the right episode."""
     import re
 
-    head = transcript[:1200].lower()
+    head = transcript[:window].lower()
     words = {
         w
         for w in re.findall(r"[a-z0-9]{4,}", (title + " " + guest).lower())
@@ -60,7 +60,7 @@ def head_matches(transcript: str, title: str, guest: str = "") -> bool:
     if not words:
         return True
     hits = sum(1 for w in words if w in head)
-    return hits >= max(1, len(words) // 4)
+    return hits >= (min_hits or max(1, len(words) // 4))
 
 
 def looks_wrong_language(transcript: str) -> bool:
@@ -88,6 +88,91 @@ def from_website(url: str, notes) -> str | None:
     text = re.sub(r"(?s)<[^>]+>", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text if len(text) > 2000 else None
+
+
+# preference order when a feed offers several formats of the same transcript
+_RSS_PREF = ["text/plain", "text/vtt", "application/x-subrip", "application/srt",
+             "application/json", "text/html"]
+
+
+def _cues_to_text(lines) -> str:
+    """Merge (speaker, text) cues into one paragraph per speaker turn."""
+    out, cur_spk, buf = [], None, []
+    for spk, txt in lines:
+        txt = txt.strip()
+        if not txt:
+            continue
+        if spk and spk != cur_spk:
+            if buf:
+                out.append((f"{cur_spk}: " if cur_spk else "") + " ".join(buf))
+            cur_spk, buf = spk, []
+        buf.append(txt)
+    if buf:
+        out.append((f"{cur_spk}: " if cur_spk else "") + " ".join(buf))
+    return "\n\n".join(out)
+
+
+def _parse_rss_transcript(body: str, mime: str) -> str:
+    import re
+
+    mime = (mime or "").lower()
+    if "json" in mime:
+        data = json.loads(body)
+        segs = data.get("segments", []) if isinstance(data, dict) else []
+        return _cues_to_text((sg.get("speaker"), sg.get("body", "")) for sg in segs)
+    if "html" in mime:
+        body = re.sub(r"(?is)<(script|style).*?</\1>", " ", body)
+        cues, spk = [], None
+        for m in re.finditer(r"(?is)<cite>(.*?)</cite>|<p>(.*?)</p>", body):
+            if m.group(1) is not None:
+                spk = re.sub(r"<[^>]+>|:$", "", m.group(1)).strip()
+            else:
+                cues.append((spk, re.sub(r"<[^>]+>", " ", m.group(2))))
+        return _cues_to_text(cues) if cues else re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body)).strip()
+    if "vtt" in mime or "srt" in mime or "subrip" in mime or "-->" in body[:2000]:
+        cues = []
+        for block in re.split(r"\n\s*\n", body.replace("\r", "")):
+            text_lines = [ln for ln in block.split("\n")
+                          if ln.strip() and "-->" not in ln and not ln.strip().isdigit()
+                          and not ln.startswith("WEBVTT") and not ln.startswith("NOTE")]
+            if not text_lines:
+                continue
+            txt = " ".join(text_lines)
+            spk = None
+            m = re.match(r"\s*<v\s+([^>]+)>(.*)", txt)
+            if m:
+                spk, txt = m.group(1).strip(), m.group(2)
+            else:
+                m = re.match(r"\s*([A-Z][\w .'-]{0,40}):\s+(.*)", txt)
+                if m:
+                    spk, txt = m.group(1).strip(), m.group(2)
+            cues.append((spk, re.sub(r"</?[^>]+>", "", txt)))
+        return _cues_to_text(cues)
+    # plain text: drop bare timestamps some hosts insert between turns
+    lines = [ln for ln in body.replace("\r", "").split("\n")
+             if not re.fullmatch(r"\s*\d{1,2}:\d{2}(:\d{2})?\s*", ln)]
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(lines)).strip()
+
+
+def from_rss_transcript(entries, notes) -> str | None:
+    """SPEC §5 tier 0: a transcript the publisher links from the RSS item itself."""
+    def rank(e):
+        t = (e.get("type") or "").lower()
+        return _RSS_PREF.index(t) if t in _RSS_PREF else len(_RSS_PREF)
+
+    for e in sorted(entries, key=rank):
+        try:
+            r = requests.get(e["url"], timeout=60, headers={"User-Agent": UA})
+            r.raise_for_status()
+            r.encoding = r.encoding or "utf-8"
+            text = _parse_rss_transcript(r.text, e.get("type", ""))
+        except Exception as exc:
+            note(notes, f"rss transcript {e.get('type')} failed: {exc}")
+            continue
+        if text and len(text) > 2000:
+            note(notes, f"rss transcript ok ({e.get('type')})")
+            return text
+    return None
 
 
 def find_youtube_id(title: str, guest: str, notes) -> str | None:
@@ -229,6 +314,8 @@ def main() -> int:
     ap.add_argument("--audio-url", default="")
     ap.add_argument("--youtube-id", default="")
     ap.add_argument("--website-url", default="")
+    ap.add_argument("--rss-transcripts", default="",
+                    help="JSON list of {url,type} from check_feeds.py transcript_urls")
     ap.add_argument("--out", required=True)
     ap.add_argument("--min-chars", type=int, default=3000)
     args = ap.parse_args()
@@ -236,7 +323,12 @@ def main() -> int:
     notes: list[str] = []
     method, text = None, None
 
-    if args.website_url:
+    if args.rss_transcripts:
+        text = from_rss_transcript(json.loads(args.rss_transcripts), notes)
+        if text:
+            method = "rss"
+
+    if not text and args.website_url:
         text = from_website(args.website_url, notes)
         if text:
             method = "website"
@@ -261,7 +353,11 @@ def main() -> int:
         note(notes, "transcript looks non-English — retry with lang=en on the correct video id")
         text = None
 
-    if text and not head_matches(text, args.title, args.guest):
+    # A publisher-linked RSS transcript is tied to this exact item, so the risk is a
+    # cold open or sponsor read, not a wrong episode: check a wider head, lighter bar.
+    rss = method == "rss"
+    if text and not head_matches(text, args.title, args.guest,
+                                 window=8000 if rss else 1200, min_hits=2 if rss else 0):
         note(notes, "HEAD CHECK FAILED — transcript may be a different episode; not trusting it")
         text = None
 

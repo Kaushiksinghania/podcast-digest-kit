@@ -148,7 +148,7 @@ back to audio transcription.
 
 ### 4c. Record what you did
 
-Every episode carries a `method` field: `website | supadata | whisper | diarize | fallback`.
+Every episode carries a `method` field: `rss | website | supadata | whisper | diarize | fallback`.
 The rendered output states it, so a reader knows how much to trust the depth.
 
 ---
@@ -158,6 +158,7 @@ The rendered output states it, so a reader knows how much to trust the depth.
 Tier chain, best to worst. Stop at the first that returns usable text.
 
 ```
+0. RSS transcript tag   (<podcast:transcript> on item) → method=rss
 1. website transcript   (if the feed exposes one)      → method=website
 2. Supadata             (YouTube id, lang=en)          → method=supadata
 3. Whisper / any STT    (RSS audio, chunked)           → method=whisper
@@ -373,7 +374,7 @@ markdown) is a projection of it.
   "contradictory": "string — optional",
   "quotes": [ "Speaker — verbatim text" ],
   "transcript_file": "path",
-  "method": "website|supadata|whisper|diarize|fallback"
+  "method": "rss|website|supadata|whisper|diarize|fallback"
 }
 ```
 
