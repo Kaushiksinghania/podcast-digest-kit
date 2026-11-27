@@ -84,9 +84,9 @@ def from_website(url: str, notes) -> str | None:
     # crude HTML strip; a real implementation should target the transcript container
     import re
 
-    text = re.sub(r"(?is)<(script|style).*?</\\1>", " ", text)
+    text = re.sub(r"(?is)<(script|style).*?</\1>", " ", text)
     text = re.sub(r"(?s)<[^>]+>", " ", text)
-    text = re.sub(r"\\s+", " ", text).strip()
+    text = re.sub(r"\s+", " ", text).strip()
     return text if len(text) > 2000 else None
 
 

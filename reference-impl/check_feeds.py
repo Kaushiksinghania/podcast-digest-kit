@@ -73,10 +73,10 @@ def strip_html(s: str) -> str:
     """Many feeds ship HTML in <description>; give the agent clean prose."""
     if not s or "<" not in s:
         return s
-    s = re.sub(r"(?is)<(script|style).*?</\\1>", " ", s)
-    s = re.sub(r"(?i)<br\\s*/?>", "\n", s)
+    s = re.sub(r"(?is)<(script|style).*?</\1>", " ", s)
+    s = re.sub(r"(?i)<br\s*/?>", "\n", s)
     s = re.sub(r"(?s)<[^>]+>", " ", s)
-    s = re.sub(r"[ \\t]+", " ", s)
+    s = re.sub(r"[ \t]+", " ", s)
     return s.strip()
 
 
