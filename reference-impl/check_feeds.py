@@ -101,6 +101,79 @@ def transcript_urls(item) -> list:
     return out
 
 
+_STOP = {"the", "and", "for", "with", "from", "that", "this", "what", "when", "into",
+         "about", "your", "how", "why", "are", "was", "episode", "podcast", "transcript"}
+_INDEX_CACHE: dict = {}
+
+
+def _tokens(s: str) -> set:
+    s = (s or "").lower().replace("\u2019", "").replace("'", "")
+    return {w for w in re.findall(r"[a-z0-9]{3,}", s) if w not in _STOP}
+
+
+def _index_entries(url: str, timeout: int) -> list:
+    """(title, link) pairs from a companion RSS feed or an HTML listing page. Cached per run."""
+    if url in _INDEX_CACHE:
+        return _INDEX_CACHE[url]
+    out = []
+    try:
+        body = requests.get(url, timeout=timeout,
+                            headers={"User-Agent": "Mozilla/5.0 " + UA}).text
+        if "<urlset" in body[:1000]:  # XML sitemap: title from the URL slug
+            for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", body):
+                slug = loc.rstrip("/").rsplit("/", 1)[-1].replace("-", " ")
+                out.append((slug, loc))
+        elif "<rss" in body[:500] or "<feed" in body[:500]:
+            for it in re.findall(r"(?s)<item[ >].*?</item>", body):
+                t = re.search(r"(?s)<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>", it)
+                l = re.search(r"(?s)<link>(.*?)</link>", it)
+                if t and l:
+                    out.append((t.group(1).strip(), l.group(1).strip()))
+        else:
+            base = re.match(r"https?://[^/]+", url).group(0)
+            for href, text in re.findall(r'(?is)<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', body):
+                text = re.sub(r"<[^>]+>", " ", text)
+                if href.startswith("/"):
+                    href = base + href
+                slug = href.rstrip("/").rsplit("/", 1)[-1].replace("-", " ")
+                out.append((f"{text} {slug}", href))
+    except Exception as exc:
+        log(f"transcript index {url}: {exc}")
+    _INDEX_CACHE[url] = out
+    return out
+
+
+def transcript_page(meta: dict, title: str, raw_desc: str, timeout: int) -> str:
+    """Find a free transcript page for an episode (SPEC §5 tier 1), or ''.
+
+    1. A link in the show notes that says it is a transcript (or a Google Doc).
+    2. A match by title in the feed's `transcript_index` (companion Substack feed or listing page).
+    """
+    links = re.findall(r'https?://[^\s"<>\]\)]+', raw_desc or "")
+    for l in links:
+        l = l.replace("&amp;", "&").rstrip(".,;")
+        m = re.search(r"docs\.google\.com/document/d/([\w-]+)", l)
+        if m:
+            return f"https://docs.google.com/document/d/{m.group(1)}/export?format=txt"
+        if "transcript" in l.lower():
+            return l
+    idx = meta.get("transcript_index")
+    if not idx:
+        return ""
+    want = _tokens(title) - _tokens(meta.get("name", ""))
+    best, best_score = "", 0.0
+    for u in idx if isinstance(idx, list) else [idx]:
+        for t, l in _index_entries(u, timeout):
+            have = _tokens(t)
+            if not want or not have:
+                continue
+            shared = len(want & have)
+            score = shared / len(want) if shared >= min(3, len(want)) else 0.0
+            if score > best_score:
+                best, best_score = l, score
+    return best if best_score >= 0.7 else ""
+
+
 def fetch(url: str, timeout: int) -> bytes:
     r = requests.get(url, timeout=timeout, headers={"User-Agent": UA})
     r.raise_for_status()
@@ -125,6 +198,8 @@ def main() -> int:
     results, failures = [], []
 
     for key, meta in feeds.items():
+        if meta.get("parked"):  # in the directory for later; no free transcript, so not fetched
+            continue
         try:
             body = fetch(meta["rss"], args.timeout)
             root = ET.fromstring(body)
@@ -146,10 +221,10 @@ def main() -> int:
             if dt is None or not (older <= dt <= newer):
                 continue
 
-            desc = strip_html(
-                text_of(item.find("description"))
-                or text_of(item.find("{%s}summary" % NS["itunes"]))
-            )
+            raw_desc = (text_of(item.find("description"))
+                        or text_of(item.find("{%s}summary" % NS["itunes"])))
+            raw_desc += " " + text_of(item.find("{%s}encoded" % NS["content"]))
+            desc = strip_html(raw_desc)
             results.append(
                 {
                     "feed_key": key,
@@ -162,6 +237,9 @@ def main() -> int:
                     "transcript_urls": transcript_urls(item),
                     "description": desc[:2000],
                     "website_transcripts": bool(meta.get("website_transcripts")),
+                    "transcript_page": transcript_page(
+                        meta, text_of(item.find("title")), raw_desc, args.timeout),
+                    "categories": meta.get("categories", []),
                 }
             )
 

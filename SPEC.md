@@ -159,7 +159,7 @@ Tier chain, best to worst. Stop at the first that returns usable text.
 
 ```
 0. RSS transcript tag   (<podcast:transcript> on item) → method=rss
-1. website transcript   (if the feed exposes one)      → method=website
+1. website transcript   (show-notes link, or title match in the feed's transcript_index) → method=website
 2. Supadata             (YouTube id, lang=en)          → method=supadata
 3. Whisper / any STT    (RSS audio, chunked)           → method=whisper
 4. Diarize.io           (URL-based, speaker labels)    → method=diarize
@@ -492,8 +492,9 @@ listening.
 
 ## §12 — Extending
 
-- **Add a feed:** one entry in `feeds.json` (`name`, `rss`, optional `website_transcripts`).
-  Nothing else changes.
+- **Add a feed:** one entry in `feeds.json` (`name`, `rss`, optional `website_transcripts`,
+  `transcript_index`, `categories`). Nothing else changes.
+- **Park a feed:** set `"parked": true` to keep a show listed without fetching it.
 - **Change the framework:** edit §7. Keep the hard rules — they are what stop invention.
 - **Add a destination:** project the §8 record onto it. Don't fork the pipeline.
 - **Change cadence:** recompute the window (§2). This is the only schedule-coupled parameter.
