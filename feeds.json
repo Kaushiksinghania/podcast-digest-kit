@@ -1,182 +1,575 @@
 {
-  "_readme": "Podcast feeds. Add/remove entries freely — that is the only edit needed to change coverage. 'website_transcripts' means the show publishes speaker-labelled transcripts on its own site, which is the highest-quality transcript path. NOTE: 'Z47 Moments' is included from the original curated list as an example of a firm-produced show — drop it if it is not relevant to you.",
+  "_readme": "Podcast feeds. Add/remove entries freely — that is the only edit needed to change coverage. 'website_transcripts' means the show publishes speaker-labelled transcripts on its own site, which is the highest-quality transcript path. NOTE: 'Z47 Moments' is included from the original curated list as an example of a firm-produced show — drop it if it is not relevant to you. 'parked': true keeps a show in the directory without fetching it (no free transcript). 'categories' become the Notion Tags. 'transcript_index' is a companion feed or listing page searched by title for a free transcript.",
   "feeds": {
     "Stepchange": {
       "name": "Climate Papa",
       "rss": "https://anchor.fm/s/e2d7a054/podcast/rss",
-      "apple_id": 1691043164
+      "apple_id": 1691043164,
+      "categories": [
+        "Climate & Energy"
+      ]
     },
     "Unsupervised Learning": {
       "name": "Unsupervised Learning with Jacob Effron",
       "rss": "https://feeds.simplecast.com/dOSE_bdP",
-      "apple_id": 1672188924
+      "apple_id": 1672188924,
+      "categories": [
+        "Tech & AI",
+        "VC & Startups"
+      ]
     },
     "OpenAI Podcast": {
       "name": "OpenAI Podcast",
       "rss": "https://feeds.acast.com/public/shows/68470ba8d911dedd6501609c",
-      "apple_id": 1820330260
+      "apple_id": 1820330260,
+      "categories": [
+        "Tech & AI"
+      ]
     },
     "The a16z Show": {
       "name": "The a16z Show",
       "rss": "https://feeds.simplecast.com/JGE3yC0V",
-      "apple_id": 842818711
+      "apple_id": 842818711,
+      "categories": [
+        "Tech & AI",
+        "VC & Startups"
+      ]
     },
     "Training Data": {
       "name": "Training Data",
       "rss": "https://feeds.megaphone.fm/trainingdata",
-      "apple_id": 1750736528
+      "apple_id": 1750736528,
+      "categories": [
+        "Tech & AI",
+        "VC & Startups"
+      ]
     },
     "Zero to Infinity": {
       "name": "Z47 Moments",
       "rss": "https://audioboom.com/channels/4979298.rss",
-      "apple_id": 1445390745
+      "apple_id": 1445390745,
+      "categories": [
+        "VC & Startups"
+      ]
     },
     "Joys of Compounding": {
       "name": "Joys of Compounding",
       "rss": "https://feeds.megaphone.fm/aoi",
-      "apple_id": 1708212587
+      "apple_id": 1708212587,
+      "categories": [
+        "Investing"
+      ]
     },
     "In Depth": {
       "name": "In Depth",
       "rss": "https://feeds.megaphone.fm/FRCH6787238462",
-      "apple_id": 1535886300
+      "apple_id": 1535886300,
+      "categories": [
+        "VC & Startups"
+      ]
     },
     "Making Markets": {
       "name": "Making Markets",
       "rss": "https://anchor.fm/s/10e3e911c/podcast/rss",
-      "apple_id": 1594407589
+      "apple_id": 1594407589,
+      "categories": [
+        "Investing"
+      ]
     },
     "Unsolicited Feedback": {
       "name": "Unsolicited Feedback",
       "rss": "https://feeds.megaphone.fm/unsolicitedfeedback",
-      "apple_id": 1706701340
+      "apple_id": 1706701340,
+      "categories": [
+        "VC & Startups"
+      ]
     },
     "Age of Miracles": {
       "name": "\"Age of Miracles\"",
       "rss": "https://feeds.megaphone.fm/ageofmiracles",
-      "apple_id": 1527421931
+      "apple_id": 1527421931,
+      "categories": [
+        "Tech & AI"
+      ]
     },
     "Return on India": {
       "name": "Return on India",
       "rss": "https://feeds.megaphone.fm/CLS7428302372",
-      "apple_id": 1656216815
+      "apple_id": 1656216815,
+      "categories": [
+        "India Markets",
+        "Investing"
+      ]
     },
     "The Memo by Howard Marks": {
       "name": "The Memo by Howard Marks",
       "rss": "https://rss.art19.com/the-memo-by-howard-marks",
-      "apple_id": 1521551570
+      "apple_id": 1521551570,
+      "categories": [
+        "Investing",
+        "Macro"
+      ]
     },
     "16 Minutes News by a16z": {
       "name": "16 Minutes News by a16z",
       "rss": "https://feeds.simplecast.com/j9kKMsfH",
-      "apple_id": 1474431037
+      "apple_id": 1474431037,
+      "categories": [
+        "Tech & AI"
+      ]
     },
     "Acquired": {
       "name": "Acquired",
       "rss": "https://feeds.transistor.fm/acquired",
       "apple_id": 1050462261,
       "website_transcripts": true,
-      "episode_url_source": "rss_link"
+      "episode_url_source": "rss_link",
+      "categories": [
+        "Investing",
+        "Tech & AI"
+      ]
     },
     "ACQ2 by Acquired": {
       "name": "ACQ2 by Acquired",
       "rss": "https://feeds.transistor.fm/acq2",
       "apple_id": 1597212401,
       "website_transcripts": true,
-      "episode_url_source": "rss_link"
+      "episode_url_source": "rss_link",
+      "categories": [
+        "Investing",
+        "Tech & AI"
+      ]
     },
     "This Week in Startups": {
       "name": "This Week in Startups",
       "rss": "https://anchor.fm/s/7c624c84/podcast/rss",
-      "apple_id": 315114957
+      "apple_id": 315114957,
+      "categories": [
+        "VC & Startups"
+      ]
     },
     "The Twenty Minute VC": {
       "name": "The Twenty Minute VC (20VC): Venture Capital | Startup Funding | The Pitch",
       "rss": "https://thetwentyminutevc.libsyn.com/rss",
-      "apple_id": 958230465
+      "apple_id": 958230465,
+      "categories": [
+        "VC & Startups"
+      ]
     },
     "Lenny's Podcast": {
       "name": "Lenny's Podcast: Product | Career | Growth",
       "rss": "https://api.substack.com/feed/podcast/10845.rss",
       "apple_id": 1627920305,
       "website_transcripts": true,
-      "episode_url_source": "rss_link"
+      "episode_url_source": "rss_link",
+      "categories": [
+        "Tech & AI",
+        "VC & Startups"
+      ]
     },
     "Business Breakdowns": {
       "name": "Business Breakdowns",
       "rss": "https://feeds.megaphone.fm/breakdowns",
       "apple_id": 1559120677,
       "website_transcripts": true,
-      "episode_url_source": "rss_link"
+      "episode_url_source": "rss_link",
+      "categories": [
+        "Investing"
+      ]
     },
     "Founders": {
       "name": "Founders",
       "rss": "https://feeds.megaphone.fm/DSLLC6297708582",
-      "apple_id": 1141877104
+      "apple_id": 1141877104,
+      "categories": [
+        "VC & Startups"
+      ]
     },
     "Invest Like the Best": {
       "name": "Invest Like the Best with Patrick O'Shaughnessy",
       "rss": "https://feeds.megaphone.fm/CLS2859450455",
       "apple_id": 1154105909,
       "website_transcripts": true,
-      "episode_url_source": "rss_link"
+      "episode_url_source": "rss_link",
+      "categories": [
+        "Investing"
+      ]
     },
     "Story of Money": {
       "name": "The Story of Money",
       "rss": "https://feeds.acast.com/public/shows/behindthemoney",
-      "apple_id": 1376303362
+      "apple_id": 1376303362,
+      "categories": [
+        "Macro"
+      ]
     },
     "Semi Doped": {
       "name": "Semi Doped",
       "rss": "https://rss.buzzsprout.com/2570635.rss",
-      "apple_id": 1866707196
+      "apple_id": 1866707196,
+      "categories": [
+        "Hardware & Manufacturing",
+        "Tech & AI"
+      ]
     },
     "Supply Chained": {
       "name": "Supply Chained",
       "rss": "https://anchor.fm/s/111a4f378/podcast/rss",
-      "apple_id": 1894962569
+      "apple_id": 1894962569,
+      "categories": [
+        "Hardware & Manufacturing",
+        "Geopolitics"
+      ]
     },
     "The Hardtech Podcast": {
       "name": "The Hardtech Podcast",
       "rss": "https://feeds.fireside.fm/hardtechpodcast/rss",
-      "apple_id": 1633290791
+      "apple_id": 1633290791,
+      "categories": [
+        "Hardware & Manufacturing",
+        "VC & Startups"
+      ]
     },
     "Hardware to Save a Planet": {
       "name": "Hardware to Save a Planet",
       "rss": "https://feeds.fame.so/hardware-to-save-a-planet",
-      "apple_id": 1628554388
+      "apple_id": 1628554388,
+      "categories": [
+        "Hardware & Manufacturing",
+        "Climate & Energy"
+      ]
     },
     "Manufacturing Happy Hour": {
       "name": "Manufacturing Happy Hour",
       "rss": "https://feeds.captivate.fm/manufacturing-happy-hour/",
-      "apple_id": 1484626862
+      "apple_id": 1484626862,
+      "categories": [
+        "Hardware & Manufacturing"
+      ]
     },
     "Catalyst": {
       "name": "Catalyst with Shayle Kann",
       "rss": "https://feeds.megaphone.fm/catalyst",
-      "apple_id": 1593204897
+      "apple_id": 1593204897,
+      "categories": [
+        "Climate & Energy"
+      ]
     },
     "Dwarkesh Podcast": {
       "name": "Dwarkesh Podcast",
       "rss": "https://apple.dwarkesh-podcast.workers.dev/feed.rss",
       "apple_id": 1516093381,
       "website_transcripts": true,
-      "episode_url_source": "rss_link"
+      "episode_url_source": "rss_link",
+      "categories": [
+        "Tech & AI"
+      ]
     },
     "Odd Lots": {
       "name": "Odd Lots",
       "rss": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/8a94442e-5a74-4fa2-8b8d-ae27003a8d6b/982f5071-765c-403d-969d-ae27003a8d83/podcast.rss",
-      "apple_id": 1056200096
+      "apple_id": 1056200096,
+      "categories": [
+        "Macro",
+        "Investing"
+      ]
     },
     "Capital Allocators": {
       "name": "Capital Allocators",
       "rss": "https://rss.libsyn.com/shows/94820/destinations/482814.xml",
-      "apple_id": 1223764016
+      "apple_id": 1223764016,
+      "categories": [
+        "Investing"
+      ]
     },
     "Macro Musings": {
       "name": "Macro Musings with David Beckworth",
       "rss": "https://rss.libsyn.com/shows/138806/destinations/865793.xml",
-      "apple_id": 1099277290
+      "apple_id": 1099277290,
+      "categories": [
+        "Macro"
+      ]
+    },
+    "The India Energy Hour": {
+      "name": "The India Energy Hour",
+      "rss": "https://anchor.fm/s/4eb1b338/podcast/rss",
+      "apple_id": 1549673056,
+      "categories": [
+        "Climate & Energy",
+        "India Policy"
+      ]
+    },
+    "Fastmarkets Fast Forward": {
+      "name": "Fastmarkets Fast Forward",
+      "rss": "https://feed.podbean.com/Fastmarkets-FastForward/feed.xml",
+      "apple_id": 1739089656,
+      "categories": [
+        "Climate & Energy",
+        "Hardware & Manufacturing"
+      ],
+      "transcript_index": "https://www.fastmarkets.com/insights/fast-forward-podcast/"
+    },
+    "Shift Key": {
+      "name": "Shift Key with Robinson Meyer",
+      "rss": "https://feeds.acast.com/public/shows/shift-key",
+      "apple_id": 1728932037,
+      "categories": [
+        "Climate & Energy"
+      ]
+    },
+    "Grand Tamasha": {
+      "name": "Grand Tamasha",
+      "rss": "https://feeds.simplecast.com/dJuLIw5J",
+      "apple_id": 1453878698,
+      "categories": [
+        "India Policy",
+        "Geopolitics"
+      ],
+      "transcript_index": "https://carnegieendowment.org/sitemaps/podcastEpisodes-0.xml"
+    },
+    "ChinaTalk": {
+      "name": "ChinaTalk",
+      "rss": "https://feeds.megaphone.fm/CHTAL4990341033",
+      "apple_id": 1289062927,
+      "categories": [
+        "Geopolitics",
+        "Tech & AI"
+      ],
+      "transcript_index": "https://www.chinatalk.media/feed"
+    },
+    "Zero: The Climate Race": {
+      "name": "Zero: The Climate Race",
+      "rss": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/37c6caa7-d377-4c08-b479-af9d012ed5ad/a7faefb0-28ec-4b1d-85f3-af9d012ed5c9/podcast.rss",
+      "apple_id": 1621556928,
+      "categories": [
+        "Climate & Energy"
+      ]
+    },
+    "Statecraft": {
+      "name": "Statecraft",
+      "rss": "https://api.substack.com/feed/podcast/1818323.rss",
+      "apple_id": 1711415224,
+      "categories": [
+        "Geopolitics"
+      ]
+    },
+    "Volts": {
+      "name": "Volts",
+      "rss": "https://api.substack.com/feed/podcast/193024.rss",
+      "apple_id": 1548554104,
+      "categories": [
+        "Climate & Energy"
+      ]
+    },
+    "The Daily Brief by Zerodha": {
+      "name": "The Daily Brief (Markets by Zerodha)",
+      "rss": "https://feeds.simplecast.com/1H1JSMd0",
+      "apple_id": 1754694834,
+      "categories": [
+        "India Markets"
+      ],
+      "transcript_index": "https://thedailybrief.zerodha.com/feed"
+    },
+    "Subtext by Zerodha": {
+      "name": "Subtext by Zerodha",
+      "rss": "https://feeds.simplecast.com/T8dZRBV1",
+      "apple_id": 1891672079,
+      "categories": [
+        "India Markets",
+        "Macro"
+      ],
+      "transcript_index": "https://thedailybrief.zerodha.com/feed"
+    },
+    "Switched On": {
+      "name": "Switched On",
+      "host": "BloombergNEF",
+      "rss": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/01a10738-3608-4dec-883c-ae3c00026b36/6d114f63-833d-4b78-bbf5-ae3c00026b44/podcast.rss",
+      "apple_id": 1469286286,
+      "categories": [
+        "Climate & Energy"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Redefining Energy": {
+      "name": "Redefining Energy",
+      "host": "Laurent Segalen and Gerard Reid",
+      "rss": "https://www.spreaker.com/show/3170008/episodes/feed",
+      "apple_id": 1439197083,
+      "categories": [
+        "Climate & Energy"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Open Circuit": {
+      "name": "Open Circuit",
+      "host": "Latitude Media",
+      "rss": "https://feeds.megaphone.fm/opencircuit",
+      "apple_id": 1794164180,
+      "categories": [
+        "Climate & Energy"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Founder Thesis": {
+      "name": "Founder Thesis",
+      "host": "Akshay Datt",
+      "rss": "https://feeds.zencastr.com/f/mbqvPYFP.rss",
+      "apple_id": 1509981658,
+      "categories": [
+        "VC & Startups"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "The Neon Show": {
+      "name": "The Neon Show",
+      "host": "Siddhartha Ahluwalia",
+      "rss": "https://rss.buzzsprout.com/1601695.rss",
+      "apple_id": 1457308560,
+      "categories": [
+        "VC & Startups"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Yet Another Value Podcast": {
+      "name": "Yet Another Value Podcast",
+      "host": "Andrew Walker",
+      "rss": "https://anchor.fm/s/c628cb7c/podcast/rss",
+      "apple_id": 1526149547,
+      "categories": [
+        "Investing"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Monetary Matters with Jack Farley": {
+      "name": "Monetary Matters with Jack Farley",
+      "host": "Jack Farley",
+      "rss": "https://feeds.megaphone.fm/EWWMN1909747317",
+      "apple_id": 1769093906,
+      "categories": [
+        "Macro"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Inevitable (formerly My Climate Journey)": {
+      "name": "Inevitable (formerly My Climate Journey)",
+      "host": "MCJ",
+      "rss": "https://feeds.simplecast.com/XFfCG1w8",
+      "apple_id": 1462776122,
+      "categories": [
+        "Climate & Energy",
+        "VC & Startups"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Puliyabaazi": {
+      "name": "Puliyabaazi",
+      "host": "Saurabh Chandra, Pranay Kotasthane, Khyati Pathak",
+      "rss": "https://api.substack.com/feed/podcast/2385534.rss",
+      "apple_id": 1380601120,
+      "categories": [
+        "India Policy"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "The Seen and the Unseen": {
+      "name": "The Seen and the Unseen",
+      "host": "Amit Varma",
+      "rss": "https://rss.libsyn.com/shows/91647/destinations/458496.xml",
+      "apple_id": 1190896090,
+      "categories": [
+        "India Policy",
+        "Macro"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Paisa Vaisa": {
+      "name": "Paisa Vaisa",
+      "host": "IVM Podcasts",
+      "rss": "https://www.omnycontent.com/d/playlist/e0dce4b3-2eb8-48cb-822c-af1d00e03e20/b3d9fccc-662e-4aa7-a14a-af4e0097d44b/e2ba1850-2b92-4a77-b08f-af4e0097d46c/podcast.rss",
+      "apple_id": 1239293215,
+      "categories": [
+        "India Markets"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "WTF is with Nikhil Kamath": {
+      "name": "WTF is with Nikhil Kamath",
+      "host": "Nikhil Kamath",
+      "rss": "https://feeds.hubhopper.com/664690fdea0d7a6f61a052da119934d3.rss",
+      "apple_id": 1677107935,
+      "categories": [
+        "India Markets",
+        "VC & Startups"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "WTF is Finance": {
+      "name": "WTF is Finance",
+      "host": "Nikhil Kamath",
+      "rss": "https://feeds.hubhopper.com/00d9f91c4b7c81a038bbbbe422741f5d.rss",
+      "apple_id": 1837857466,
+      "categories": [
+        "Investing",
+        "Macro"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "People by WTF": {
+      "name": "People by WTF",
+      "host": "Nikhil Kamath",
+      "rss": "https://feeds.hubhopper.com/db41907e6c28518ffe336b392c715ef1.rss",
+      "apple_id": 1819856014,
+      "categories": [
+        "VC & Startups"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Equity": {
+      "name": "Equity",
+      "host": "TechCrunch",
+      "rss": "https://feeds.megaphone.fm/YFL6537156961",
+      "apple_id": 1215439780,
+      "categories": [
+        "VC & Startups"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "The Daily Brief Hindi": {
+      "name": "The Daily Brief Hindi",
+      "host": "Zerodha",
+      "rss": "https://feeds.simplecast.com/qMlWFrJg",
+      "apple_id": 1773252636,
+      "categories": [
+        "India Markets"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
+    },
+    "Please Help Me Understand": {
+      "name": "Please Help Me Understand",
+      "host": "Zerodha",
+      "rss": "https://feeds.simplecast.com/nM7ppFEB",
+      "apple_id": 1759320717,
+      "categories": [
+        "Investing"
+      ],
+      "parked": true,
+      "parked_reason": "no free transcript"
     }
   }
 }
